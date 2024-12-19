@@ -1,0 +1,122 @@
+buildscript {
+    ext {
+
+    }
+
+    repositories {
+        maven {
+            allowInsecureProtocol = true
+            url "https://maven.aliyun.com/nexus/content/groups/public/"
+        }
+        mavenLocal()
+        mavenCentral()
+        google()
+    }
+
+    dependencies {
+        classpath "org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}"
+    }
+}
+
+
+plugins {
+    id 'base'
+    id 'java'
+    id 'idea'
+    id 'eclipse'
+    id 'application'
+}
+
+apply plugin: "org.springframework.boot"
+
+repositories {
+    maven {
+        allowInsecureProtocol = true
+        url "https://maven.aliyun.com/nexus/content/groups/public/"
+    }
+    mavenLocal()
+    mavenCentral()
+    google()
+}
+
+application {
+    mainClass = 'com.toocans.SpringBootDemoApplication'
+}
+
+base {
+    archivesName = 'spring-boot-trial'
+}
+
+group 'com.toocans'
+version = projectVersion
+description = '样例服务'
+
+dependencies {
+    implementation "org.springframework.boot:spring-boot-starter:$springBootVersion"
+    implementation "org.springframework.boot:spring-boot-starter-web:$springBootVersion"
+    implementation "org.springframework.boot:spring-boot-starter-actuator:$springBootVersion"
+    implementation("org.springframework.boot:spring-boot-starter-aop:$springBootVersion")
+    implementation "org.springframework.boot:spring-boot-configuration-processor:$springBootVersion"
+    implementation "org.springframework.boot:spring-boot-starter-logging:$springBootVersion"
+
+    testImplementation("org.springframework.boot:spring-boot-starter-test:$springBootVersion")
+
+    implementation "com.google.code.gson:gson:${gsonVersion}"
+    implementation("com.google.guava:guava:$guavaVersion")
+    implementation "commons-io:commons-io:${commonsIoVersion}"
+    implementation "org.apache.commons:commons-lang3:${commonsLang3Version}"
+
+    testImplementation("io.rest-assured:rest-assured:$restAssuredVersion")
+    testImplementation("org.mockito:mockito-junit-jupiter:$mockitoVersion")
+    testImplementation("org.junit.jupiter:junit-jupiter-api:$junitVersion")
+    testImplementation("org.junit.jupiter:junit-jupiter-params:$junitVersion")
+    testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:$junitVersion")
+
+    compileOnly("org.projectlombok:lombok:$lombokVersion")
+    annotationProcessor("org.projectlombok:lombok:$lombokVersion")
+    testAnnotationProcessor "org.projectlombok:lombok:${lombokVersion}"
+    testCompileOnly "org.projectlombok:lombok:${lombokVersion}"
+
+    testImplementation("org.awaitility:awaitility:$awaitilityVersion")
+}
+
+
+wrapper {
+    gradleVersion = '8.11.1'
+    distributionType = Wrapper.DistributionType.ALL
+}
+
+tasks.withType(Test).configureEach {
+    useJUnitPlatform()
+    testLogging {
+        events 'started', 'passed'
+        showStandardStreams = true
+    }
+}
+
+java {
+    sourceCompatibility = JavaVersion.VERSION_21
+    targetCompatibility = JavaVersion.VERSION_21
+}
+
+tasks.withType(JavaCompile).configureEach {
+    options.encoding = 'UTF-8'
+    options.compilerArgs += ['-Xlint:unchecked', '-Xlint:deprecation']
+}
+
+
+tasks.withType(Javadoc).configureEach {
+    options.encoding = 'UTF-8'
+}
+
+apply from: "$rootDir/gradle/config/scripts/idea.gradle"
+apply from: "$rootDir/gradle/config/scripts/coverage.gradle"
+
+coverage.excludePackages = [
+]
+
+coverage.excludeClasses = [
+]
+
+
+

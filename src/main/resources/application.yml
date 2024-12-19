@@ -1,0 +1,14 @@
+server:
+  port: 8762
+
+logging:
+  level:
+    root: INFO
+
+management:
+  endpoints:
+    web:
+      base-path: /
+      exposure:
+        include: refresh,health,info
+
