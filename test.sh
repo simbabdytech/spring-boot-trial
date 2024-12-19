@@ -1,23 +1,20 @@
-# spring-boot-trial
+#!/usr/bin/env bash
 
-样例程序
+CurrentDir=$(dirname $0)
 
-```shell
+echo ""
 curl -X GET -H "Content-Type: application/json" "http://127.0.0.1:8762/hello"
-```
 
-```shell
+echo ""
 curl -X POST -H "Content-Type: application/json" "http://127.0.0.1:8762/hi?name=testUser"
-```
 
-```shell
+echo ""
 curl -X POST -H "Content-Type: application/json" "http://127.0.0.1:8762/hi"
-```
 
-```shell
+echo ""
 curl -X GET -H "Content-Type: application/json" -H "X-Timezone: Europe/London" "http://127.0.0.1:8762/get-time"
-```
 
-```shell
+echo ""
 curl -X POST -H "Content-Type: application/json" -H "X-Timezone: Europe/London" "http://127.0.0.1:8762/post-time"
-```
+
+echo ""

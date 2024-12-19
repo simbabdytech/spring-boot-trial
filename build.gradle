@@ -40,7 +40,7 @@ repositories {
 }
 
 application {
-    mainClass = 'com.toocans.SpringBootDemoApplication'
+    mainClass = 'com.toocans.SpringBootTrialApplication'
 }
 
 base {
